@@ -40,7 +40,7 @@ impl Severity {
 impl Alert {
     pub fn main_description(&self) -> String {
         format!(
-            "<p><b>{}</b></p><p>Line {} ({}–{}): <code>{}</code></p><p>{}</p>",
+            "*{}*\n\nLine {} ({}–{}): `{}`\n\n{}",
             self.severity.as_str(), self.line, self.span.0, self.span.1, self.r#match, self.message
         )
     }
