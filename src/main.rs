@@ -15,6 +15,7 @@
 */
 
 mod cli;
+mod vale;
 
 fn main() {
     let _args = cli::arguments();
