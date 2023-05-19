@@ -15,6 +15,7 @@
 */
 
 use std::fs::File;
+use std::io;
 
 use color_eyre::eyre::{Result, WrapErr};
 
@@ -36,7 +37,15 @@ fn main() -> Result<()> {
     log::info!("Loading the JSON input.");
 
     let json = match args.variant {
-        cli::Variants::Input { input } => input,
+        cli::Variants::Stdin => {
+            let mut buffer = String::new();
+
+            for line in io::stdin().lines() {
+                buffer.push_str(&line?);
+                buffer.push('\n');
+            }
+            buffer
+        }
         cli::Variants::File { file } => {
             std::fs::read_to_string(file).wrap_err("Failed to read the input file.")?
         }

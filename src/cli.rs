@@ -48,11 +48,9 @@ pub enum Variants {
         #[bpaf(short, long, argument("FILE"))]
         file: PathBuf,
     },
-    Input {
-        /// The JSON string passed on the command line.
-        #[bpaf(short, long, argument("JSON"))]
-        input: String,
-    },
+    /// Pass the JSON string as standard input (stdin).
+    #[bpaf(short('i'), long)]
+    Stdin,
 }
 
 /// Calculate the length of a vector for repeating flags, such as verbosity.
