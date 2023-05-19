@@ -19,9 +19,9 @@ use std::fs::File;
 use color_eyre::eyre::{Result, WrapErr};
 
 mod cli;
+mod logging;
 mod report;
 mod vale;
-mod logging;
 
 fn main() -> Result<()> {
     // Enable full-featured error logging.
@@ -38,15 +38,14 @@ fn main() -> Result<()> {
     let json = match args.variant {
         cli::Variants::Input { input } => input,
         cli::Variants::File { file } => {
-            std::fs::read_to_string(file)
-                .wrap_err("Failed to read the input file.")?
+            std::fs::read_to_string(file).wrap_err("Failed to read the input file.")?
         }
     };
 
     log::info!("Parsing the JSON input.");
 
-    let deserialized: vale::Alerts = serde_json::from_str(&json)
-        .wrap_err("Failed to parse the input file.")?;
+    let deserialized: vale::Alerts =
+        serde_json::from_str(&json).wrap_err("Failed to parse the input file.")?;
 
     log::debug!("The parsed JSON input:");
     log::debug!("{:#?}", deserialized);
@@ -57,9 +56,9 @@ fn main() -> Result<()> {
 
     log::info!("Saving the JUnit output to the output file.");
 
-    let mut file = File::create(args.out)
-        .wrap_err("Failed to create the output file.")?;
-    report.write_xml(&mut file)
+    let mut file = File::create(args.out).wrap_err("Failed to create the output file.")?;
+    report
+        .write_xml(&mut file)
         .wrap_err("Failed to write to the output file.")?;
 
     Ok(())

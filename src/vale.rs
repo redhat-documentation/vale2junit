@@ -39,6 +39,9 @@ impl Severity {
 
 impl Alert {
     pub fn full_description(&self) -> String {
-        format!("Line {} ({}–{}): {}", self.line, self.span.0, self.span.1, self.message)
+        format!(
+            "Line {} ({}–{}): {}",
+            self.line, self.span.0, self.span.1, self.message
+        )
     }
 }
