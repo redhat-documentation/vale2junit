@@ -4,9 +4,10 @@ use std::path::PathBuf;
 use serde::Deserialize;
 use serde_derive::Deserialize;
 
+#[derive(Debug, Deserialize)]
 pub struct Alerts(HashMap<PathBuf, Vec<Alert>>);
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Alert {
     span: (u64, u64),
@@ -19,7 +20,7 @@ pub struct Alert {
     line: u64,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Severity {
     Suggestion,

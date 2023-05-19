@@ -18,6 +18,16 @@ mod cli;
 mod vale;
 
 fn main() {
-    let _args = cli::arguments();
+    let args = cli::arguments();
     println!("Hello, world!");
+
+    let json = match args.variant {
+        cli::Variants::Input { input } => input,
+        cli::Variants::File { file } => {
+            std::fs::read_to_string(file).unwrap()
+        }
+    };
+
+    let deserialized: vale::Alerts = serde_json::from_str(&json).unwrap();
+    println!("{:#?}", deserialized);
 }
