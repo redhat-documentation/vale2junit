@@ -2,7 +2,7 @@ use std::convert::From;
 use std::path::Path;
 
 use junit_report::{
-    Duration, Report, ReportBuilder, TestCase, TestCaseBuilder, TestSuite, TestSuiteBuilder,
+    Duration, Report, ReportBuilder, TestCase, TestCaseBuilder, TestSuite,
 };
 
 use crate::vale::{Alert, Alerts, Severity};
@@ -22,18 +22,18 @@ impl Alert {
 }
 
 struct ValeSuites {
-    suggestions: TestSuite,
-    warnings: TestSuite,
     errors: TestSuite,
+    warnings: TestSuite,
+    suggestions: TestSuite,
 }
 
 impl From<Alerts> for ValeSuites {
     fn from(item: Alerts) -> Self {
         let hashmap = item.0;
 
-        let mut sug_suite = TestSuiteBuilder::new("Suggestions");
-        let mut warn_suite = TestSuiteBuilder::new("Warnings");
-        let mut err_suite = TestSuiteBuilder::new("Errors");
+        let mut err_suite = TestSuite::new("Errors");
+        let mut warn_suite = TestSuite::new("Warnings");
+        let mut sug_suite = TestSuite::new("Suggestions");
 
         for (file, alerts) in &hashmap {
             for alert in alerts {
@@ -47,9 +47,9 @@ impl From<Alerts> for ValeSuites {
         }
 
         ValeSuites {
-            suggestions: sug_suite.build(),
-            warnings: warn_suite.build(),
-            errors: err_suite.build(),
+            errors: err_suite,
+            warnings: warn_suite,
+            suggestions: sug_suite,
         }
     }
 }
@@ -57,9 +57,9 @@ impl From<Alerts> for ValeSuites {
 impl From<ValeSuites> for Report {
     fn from(item: ValeSuites) -> Self {
         ReportBuilder::new()
-            .add_testsuite(item.suggestions)
-            .add_testsuite(item.warnings)
             .add_testsuite(item.errors)
+            .add_testsuite(item.warnings)
+            .add_testsuite(item.suggestions)
             .build()
     }
 }
