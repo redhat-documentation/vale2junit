@@ -38,10 +38,14 @@ impl Severity {
 }
 
 impl Alert {
-    pub fn full_description(&self) -> String {
+    pub fn main_description(&self) -> String {
         format!(
-            "Line {} ({}–{}): {}",
-            self.line, self.span.0, self.span.1, self.message
+            "{}\nLine {} ({}–{}): {}",
+            self.severity.as_str(), self.line, self.span.0, self.span.1, self.message
         )
+    }
+
+    pub fn details(&self) -> String {
+        format!("{}\n\nMatch '{}'", self.check, self.r#match)
     }
 }

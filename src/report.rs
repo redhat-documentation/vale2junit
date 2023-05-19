@@ -11,10 +11,10 @@ impl Alert {
     fn into_testcase(&self, filename: &Path) -> TestCase {
         let readable_path = filename.display().to_string();
         TestCaseBuilder::failure(
-            &self.check,
+            &self.main_description(),
             Duration::seconds(0),
             self.severity.as_str(),
-            &self.full_description(),
+            &self.details(),
         )
         .set_filepath(&readable_path)
         .build()
