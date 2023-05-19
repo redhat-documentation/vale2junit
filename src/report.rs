@@ -10,10 +10,10 @@ impl Alert {
     fn into_testcase(&self, filename: &Path) -> TestCase {
         let readable_path = filename.display().to_string();
         TestCaseBuilder::failure(
-            self.severity.as_str(),
+            &self.check,
             Duration::seconds(0),
             self.severity.as_str(),
-            &self.message
+            &self.full_description(),
         )
         .set_filepath(&readable_path)
         .build()
