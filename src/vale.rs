@@ -40,12 +40,12 @@ impl Severity {
 impl Alert {
     pub fn main_description(&self) -> String {
         format!(
-            "{}\nLine {} ({}–{}): {}",
-            self.severity.as_str(), self.line, self.span.0, self.span.1, self.message
+            "<p><b>{}</b></p><p>Line {} ({}–{}): <code>{}</code></p><p>{}</p>",
+            self.severity.as_str(), self.line, self.span.0, self.span.1, self.r#match, self.message
         )
     }
 
     pub fn details(&self) -> String {
-        format!("{}\n\nMatch '{}'", self.check, self.r#match)
+        self.check.clone()
     }
 }
