@@ -1,6 +1,6 @@
 [package]
 name = "vale2junit"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 authors = ["Marek Suchánek <msuchane@redhat.com>"]
 # Check the Rust version using `cargo msrv verify`.
