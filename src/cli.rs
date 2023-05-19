@@ -33,6 +33,10 @@ pub struct Cli {
     #[bpaf(short, long, switch, many, map(vec_len))]
     pub verbose: usize,
 
+    /// Output file.
+    #[bpaf(short, long, argument("FILE"))]
+    pub out: PathBuf,
+
     #[bpaf(external(variants))]
     pub variant: Variants,
 }

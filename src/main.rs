@@ -14,13 +14,14 @@
    limitations under the License.
 */
 
+use std::fs::File;
+
 mod cli;
 mod report;
 mod vale;
 
 fn main() {
     let args = cli::arguments();
-    println!("Hello, world!");
 
     let json = match args.variant {
         cli::Variants::Input { input } => input,
@@ -30,7 +31,10 @@ fn main() {
     };
 
     let deserialized: vale::Alerts = serde_json::from_str(&json).unwrap();
-    println!("{:#?}", deserialized);
+    //println!("{:#?}", deserialized);
+
     let report = report::junit_report(deserialized);
-    println!("{:#?}", report);
+
+    let mut file = File::create(args.out).unwrap();
+    report.write_xml(&mut file).unwrap();
 }
