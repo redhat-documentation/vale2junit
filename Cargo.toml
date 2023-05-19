@@ -1,0 +1,25 @@
+[package]
+name = "vale2junit"
+version = "0.1.0"
+edition = "2021"
+authors = ["Marek Suchánek <msuchane@redhat.com>"]
+# Check the Rust version using `cargo msrv verify`.
+#rust-version = "1.62"
+description = "Convert the JSON output from Vale to the JUnit format."
+license = "Apache-2.0"
+readme = "README.md"
+categories = ["command-line-utilities", "text-processing"]
+repository = "https://github.com/msuchane/vale2junit/"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bpaf = { version = "0.8", features = ["derive", "dull-color"]}
+log = "0.4"
+simplelog = "0.12"
+# Disable support for tracing_error and SpanTrace in eyre
+color-eyre = { version = "0.6", default-features = false }
+serde = "^1.0"
+serde_derive = "^1.0"
+serde_json = "1.0"
+junit-report = "0.8"
