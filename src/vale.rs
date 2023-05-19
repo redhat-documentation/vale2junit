@@ -30,9 +30,9 @@ pub enum Severity {
 impl Severity {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Suggestion => "ℹ️Suggestionℹ️",
-            Self::Warning => "⚠️Warning⚠️",
-            Self::Error => "❌Error❌",
+            Self::Suggestion => "ℹ️ Suggestion",
+            Self::Warning => "⚠️ Warning",
+            Self::Error => "❌ Error",
         }
     }
 }
@@ -40,8 +40,8 @@ impl Severity {
 impl Alert {
     pub fn main_description(&self) -> String {
         format!(
-            "{} Line {}:{}. {}",
-            self.severity.as_str(), self.line, self.span.0, self.message
+            "{} — {} — Line {}:{}",
+            self.severity.as_str(), self.message, self.line, self.span.0
         )
     }
 
