@@ -33,6 +33,8 @@ fn main() -> Result<()> {
     // Configure logging based on the set verbosity level.
     logging::initialize_logger(args.verbose)?;
 
+    log::info!("Loading the JSON input.");
+
     let json = match args.variant {
         cli::Variants::Input { input } => input,
         cli::Variants::File { file } => {
@@ -41,11 +43,19 @@ fn main() -> Result<()> {
         }
     };
 
+    log::info!("Parsing the JSON input.");
+
     let deserialized: vale::Alerts = serde_json::from_str(&json)
         .wrap_err("Failed to parse the input file.")?;
-    //println!("{:#?}", deserialized);
+
+    log::debug!("The parsed JSON input:");
+    log::debug!("{:#?}", deserialized);
+
+    log::info!("Converting the JSON input to JUnit.");
 
     let report = report::junit_report(deserialized);
+
+    log::info!("Saving the JUnit output to the output file.");
 
     let mut file = File::create(args.out)
         .wrap_err("Failed to create the output file.")?;

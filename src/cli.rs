@@ -60,6 +60,6 @@ pub enum Variants {
 /// This function has to take the argument by value because that's how
 /// the `bpaf` parser passes it in the map application.
 #[allow(clippy::needless_pass_by_value)]
-fn vec_len<T>(vec: Vec<T>) -> usize {
-    vec.len()
+fn vec_len(vec: Vec<bool>) -> usize {
+    vec.iter().filter(|&b| *b).count()
 }
