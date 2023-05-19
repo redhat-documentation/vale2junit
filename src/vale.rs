@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 use std::path::PathBuf;
 
-use serde::Deserialize;
 use serde_derive::Deserialize;
 
 #[derive(Debug, Deserialize)]
