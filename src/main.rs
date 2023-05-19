@@ -20,8 +20,8 @@ use std::io;
 use color_eyre::eyre::{Result, WrapErr};
 
 mod cli;
+mod junit;
 mod logging;
-mod report;
 mod vale;
 
 fn main() -> Result<()> {
@@ -61,7 +61,7 @@ fn main() -> Result<()> {
 
     log::info!("Converting the JSON input to JUnit.");
 
-    let report = report::junit_report(deserialized);
+    let report = junit::report(deserialized);
 
     log::info!("Saving the JUnit output to the output file.");
 

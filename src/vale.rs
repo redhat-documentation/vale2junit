@@ -41,11 +41,17 @@ impl Alert {
     pub fn main_description(&self) -> String {
         format!(
             "{} — {} — Line {}:{}",
-            self.severity.as_str(), self.message, self.line, self.span.0
+            self.severity.as_str(),
+            self.message,
+            self.line,
+            self.span.0
         )
     }
 
     pub fn details(&self) -> String {
-        format!("Line {}. Span {}–{}. Match `{}`.", self.line, self.span.0, self.span.1, self.r#match)
+        format!(
+            "Line {}. Span {}–{}. Match `{}`.",
+            self.line, self.span.0, self.span.1, self.r#match
+        )
     }
 }

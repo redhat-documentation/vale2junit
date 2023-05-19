@@ -8,7 +8,7 @@ use junit_report::{
 use crate::vale::{Alert, Alerts, Severity};
 
 impl Alert {
-    fn into_testcase(&self, filename: &Path) -> TestCase {
+    fn to_testcase(&self, filename: &Path) -> TestCase {
         let readable_path = filename.display().to_string();
         TestCaseBuilder::failure(
             &self.main_description(),
@@ -29,20 +29,20 @@ struct ValeSuites {
 
 impl From<Alerts> for ValeSuites {
     fn from(item: Alerts) -> Self {
-        let hm = item.0;
+        let hashmap = item.0;
 
         let mut sug_suite = TestSuiteBuilder::new("Suggestions");
         let mut warn_suite = TestSuiteBuilder::new("Warnings");
         let mut err_suite = TestSuiteBuilder::new("Errors");
 
-        for (file, alerts) in hm.iter() {
+        for (file, alerts) in &hashmap {
             for alert in alerts {
                 let suite = match alert.severity {
                     Severity::Suggestion => &mut sug_suite,
                     Severity::Warning => &mut warn_suite,
                     Severity::Error => &mut err_suite,
                 };
-                suite.add_testcase(alert.into_testcase(file));
+                suite.add_testcase(alert.to_testcase(file));
             }
         }
 
@@ -73,6 +73,6 @@ impl From<Alerts> for Report {
     }
 }
 
-pub fn junit_report(alerts: Alerts) -> Report {
+pub fn report(alerts: Alerts) -> Report {
     alerts.into()
 }
