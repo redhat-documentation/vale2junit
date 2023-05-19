@@ -15,6 +15,7 @@
 */
 
 mod cli;
+mod report;
 mod vale;
 
 fn main() {
@@ -30,4 +31,6 @@ fn main() {
 
     let deserialized: vale::Alerts = serde_json::from_str(&json).unwrap();
     println!("{:#?}", deserialized);
+    let report = report::junit_report(deserialized);
+    println!("{:#?}", report);
 }
