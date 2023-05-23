@@ -50,8 +50,8 @@ impl Alert {
 
     pub fn details(&self) -> String {
         format!(
-            "Line {}. Span {}–{}. Match `{}`.",
-            self.line, self.span.0, self.span.1, self.r#match
+            "Line {}. Span {}–{}. Matching `{}`. From {}.",
+            self.line, self.span.0, self.span.1, self.r#match, self.check
         )
     }
 }

@@ -1,9 +1,7 @@
 use std::convert::From;
 use std::path::Path;
 
-use junit_report::{
-    Duration, Report, ReportBuilder, TestCase, TestCaseBuilder, TestSuite,
-};
+use junit_report::{Duration, Report, ReportBuilder, TestCase, TestCaseBuilder, TestSuite};
 
 use crate::vale::{Alert, Alerts, Severity};
 
