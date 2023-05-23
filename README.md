@@ -74,9 +74,11 @@ This tool is available as a container at <https://quay.io/repository/msuchane/va
 
 In CI/CD, you can deploy the tool in various ways depending on your Git platform, your documentation file layout, and other factors.
 
-The following is an example of a CI/CD configuration in GitLab in a repository of AsciiDoc documentation files.
+The following is an example of a GitLab CI/CD configuration in a repository of AsciiDoc documentation files.
 
 It requires that you set the `VALE_CI_API_TOKEN` variable to upload test results to GitLab. See [Create a deploy token](https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html#create-a-deploy-token).
+
+### `.gitlab-ci.yml`
 
 ```yaml
 # Run this whole file only in merge requests.
