@@ -49,6 +49,7 @@ This tool is available as a container at <https://quay.io/repository/msuchane/va
     
     BasedOnStyles = RedHat
     ```
+
 3. Apply the Vale configuration:
 
     ```
@@ -65,6 +66,12 @@ This tool is available as a container at <https://quay.io/repository/msuchane/va
 
     ```
     $ vale2junit --file=vale-report.json --out=report.xml
+    ```
+
+    Optionally, you can also generate a CSV output in addition to JUnit:
+
+    ```
+    $ vale2junit --file=vale-report.json --out=report.xml --csv=report.csv
     ```
 
 6. The `report.xml` file contains the JUnit output.
@@ -162,7 +169,7 @@ vale_test_results:
 
   script:
     - vale2junit --version
-    - vale2junit --verbose --file=_setup/vale-report.json --out=report.xml
+    - vale2junit --verbose --file=_setup/vale-report.json --out=report.xml --csv=report.csv
 
   after_script:
     - |
@@ -179,6 +186,8 @@ vale_test_results:
 
   artifacts:
     when: always
+    paths:
+      - "report.csv"
     reports:
       junit: report.xml
     expire_in: 1 week
