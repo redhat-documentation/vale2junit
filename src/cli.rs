@@ -33,9 +33,13 @@ pub struct Cli {
     #[bpaf(short, long, switch, many, map(vec_len))]
     pub verbose: usize,
 
-    /// Output file.
+    /// The output JUnit file.
     #[bpaf(short, long, argument("FILE"))]
     pub out: PathBuf,
+
+    /// Also create this optional CSV file.
+    #[bpaf(short, long, argument("FILE"))]
+    pub csv: Option<PathBuf>,
 
     #[bpaf(external(variants))]
     pub variant: Variants,

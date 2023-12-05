@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::path::PathBuf;
 
-use serde_derive::Deserialize;
+use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize)]
 pub struct Alerts(pub HashMap<PathBuf, Vec<Alert>>);
@@ -19,7 +19,7 @@ pub struct Alert {
     pub line: u64,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Severity {
     Suggestion,
@@ -28,7 +28,7 @@ pub enum Severity {
 }
 
 impl Severity {
-    pub fn as_str(&self) -> &'static str {
+    pub fn as_str(self) -> &'static str {
         match self {
             Self::Suggestion => "ℹ️ Suggestion",
             Self::Warning => "⚠️ Warning",

@@ -20,6 +20,7 @@ use std::io;
 use color_eyre::eyre::{Result, WrapErr};
 
 mod cli;
+mod csv;
 mod junit;
 mod logging;
 mod vale;
@@ -59,13 +60,18 @@ fn main() -> Result<()> {
     log::debug!("The parsed JSON input:");
     log::debug!("{:#?}", deserialized);
 
+    if let Some(file) = args.csv {
+        log::info!("Converting the JSON input to CSV.");
+        csv::table(&deserialized, &file).wrap_err("Failed to create the CSV output.")?;
+    }
+
     log::info!("Converting the JSON input to JUnit.");
 
     let report = junit::report(deserialized);
 
     log::info!("Saving the JUnit output to the output file.");
 
-    let mut file = File::create(args.out).wrap_err("Failed to create the output file.")?;
+    let mut file = File::create(args.out).wrap_err("Failed to create the JUnit file.")?;
     report
         .write_xml(&mut file)
         .wrap_err("Failed to write to the output file.")?;
