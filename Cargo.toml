@@ -9,7 +9,7 @@ description = "Convert the JSON output from Vale to the JUnit format."
 license = "Apache-2.0"
 readme = "README.md"
 categories = ["command-line-utilities", "text-processing"]
-repository = "https://github.com/msuchane/vale2junit/"
+repository = "https://github.com/redhat-documentation/vale2junit/"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

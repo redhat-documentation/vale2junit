@@ -7,18 +7,18 @@ This tool is intended as a CI/CD component that you use to turn Vale output into
 
 ## Installation
 
-This tool is available as a container at <https://quay.io/repository/msuchane/vale2junit>. If you want to install it locally, use Docker or Podman:
+This tool is available as a container at <https://quay.io/repository/redhat-documentation/vale2junit>. If you want to install it locally, use Docker or Podman:
 
 1. Download the image:
 
     ```
-    $ docker pull quay.io/msuchane/vale2junit:latest
+    $ docker pull quay.io/redhat-documentation/vale2junit:latest
     ```
 
 2. Configure a command alias. Save this line in your shell configuration file, such as in the `~/.bashrc` file:
 
     ```bash
-    alias vale2junit="docker run -it -v .:/mnt/vale2junit:Z msuchane/vale2junit vale2junit"
+    alias vale2junit="docker run -it -v .:/mnt/vale2junit:Z redhat-documentation/vale2junit vale2junit"
     ```
 
 3. Open a new terminal to reload the shell configuration.
@@ -151,7 +151,7 @@ vale_test:
 
 # Convert the Vale test results to JUnit
 vale_test_results:
-  image: quay.io/msuchane/vale2junit:latest
+  image: quay.io/redhat-documentation/vale2junit:latest
   tags: [shared]
   stage: .post
   variables:
